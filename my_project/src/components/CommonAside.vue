@@ -34,7 +34,7 @@ export default {
                     ]
                 },
                 {
-                    label: '专家诊断', path: '/others1', children: [
+                    label: '专家诊断qq', path: '/others1', children: [
                         { path: '/userAsk', label: '用户问询', icon: 'ri-user-fill' },
                         { path: '/expertResponse', label: '专家回复', icon: 'ri-user-fill' }
                     ]
