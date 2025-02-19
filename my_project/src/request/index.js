@@ -53,7 +53,7 @@ app.post('/login', (req, res) => {
       return res.status(500).send('数据库查询失败');
     }
     if (result.rows.length > 0) {
-      res.send('登录成功');
+      res.send({ message: '登录成功', username: username });
     } else {
       res.send('无效的用户名或密码');
     }

@@ -11,7 +11,8 @@ export default {
                 {
                     label: '系统管理', path: '/others', children: [
                         { path: '/userManagement', label: '用户管理', icon: 'ri-user-fill' },
-                        { path: '/systemSetting', label: '系统设置', icon: 'ri-user-fill' }
+                        { path: '/roleManagement', label: '角色管理', icon: 'ri-user-fill' },
+                        { path: '/systemSetting', label: '系统设置', icon: 'ri-user-fill' },
                     ]
                 },
                 {

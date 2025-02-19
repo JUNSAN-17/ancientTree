@@ -57,7 +57,7 @@ export default {
     height: 60px;
     display: flex;
     justify-content: space-between;
-    background: rgb(60, 69, 81); 
+    background: rgb(51, 59, 70); 
     align-items: center;
     padding: 0 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 

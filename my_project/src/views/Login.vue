@@ -118,6 +118,7 @@
 import axios from "axios";
 import { ElForm, ElFormItem, ElInput, ElButton, ElCard, ElCheckbox, ElDialog, ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import { useCounterStore } from "../stores/counter"
 
 export default {
   name: "Login",
@@ -179,7 +180,13 @@ export default {
           password: this.form.password,
         });
 
-        if (response.data === "登录成功") {
+        if (response.data.message === "登录成功") {
+          const userData = response.data.username;
+          console.log(userData);
+
+          const userStore = useCounterStore();
+          userStore.setUsername(userData);
+
           ElMessage.success("登录成功！"); // 登录成功的提示
           this.$router.push("/home");
         } else {
