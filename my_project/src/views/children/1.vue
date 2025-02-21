@@ -25,20 +25,122 @@ export default {
           { validator: this.checkUsername, trigger: 'blur', },
         ],
       },
+      tableData: [
+        {
+          name: "孙悟空",
+          age: 18,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree6.png',
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree5.png',
+          ]
+        },
+        {
+          name: "猪八戒",
+          age: 28,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree5.png',
+            '/TreeImg/tree6.png',
+          ]
+        },
+        {
+          name: "沙和尚",
+          age: 38,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree5.png',
+            '/TreeImg/tree6.png',
+          ]
+        },
+        {
+          name: "唐僧",
+          age: 8,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree5.png',
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree6.png',
+          ]
+        },
+        {
+          name: "唐僧",
+          age: 8,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree5.png',
+            '/TreeImg/tree6.png',
+          ]
+        },
+        {
+          name: "唐僧",
+          age: 8,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree5.png',
+            '/TreeImg/tree6.png',
+          ]
+        },
+        {
+          name: "唐僧",
+          age: 8,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree5.png',
+            '/TreeImg/tree6.png',
+          ]
+        },
+        {
+          name: "唐僧",
+          age: 8,
+          gender: "男",
+          srcList: [
+            '/TreeImg/tree1.png',
+            '/TreeImg/tree2.png',
+            '/TreeImg/tree3.png',
+            '/TreeImg/tree4.png',
+            '/TreeImg/tree5.png',
+            '/TreeImg/tree6.png',
+          ]
+        },
+      ],
       index: null,
       oldid: null,
       totalPage: 0,
       rightSearchId: "",
       idarr: [],
-      fileList: [],
-      currentPage: 1, // 当前页
-      pageSize: 7,   // 每页条数
-      totalItems: 0,  // 总记录数
+      fileList: []
     };
   },
   mounted() {
-    // this.start()
-    this.fetchData(this.currentPage);
+    this.start()
     setTimeout(() => {
       this.updatatable()
     }, 1000);
@@ -79,24 +181,23 @@ export default {
         url: 'http://localhost:4000/updtable',
         data: idarr
       }).then((res) => {
-
       })
     },
     // 初试化信息
-    // start() {
-    //   // 请求数据库中所有数据
-    //   axios({
-    //     method: "get",
-    //     url: 'http://localhost:4000/user',
-    //     data: {}
-    //   }).then((res) => {
-    //     this.hhh = res.data;
-    //     console.log(this.hhh.length);
-    //     this.hhh.forEach(element => this.idarr.push(element.id)
-    //     )
-    //   })
-    // },
+    start() {
+      // 请求数据库中所有数据
+      axios({
+        method: "get",
+        url: 'http://localhost:4000/user',
+        data: {}
+      }).then((res) => {
+        this.hhh = res.data
+        // console.log(this.hhh);
+        this.hhh.forEach(element => this.idarr.push(element.id)
+        )
+      })
 
+    },
     // 添加按钮打开的对话框里的文件状态
     fileChange(file) {
       console.log(file.raw);
@@ -150,44 +251,6 @@ export default {
       });
     },
     // 点击edit后的确定按钮
-    // editSubmit() {
-    //   const editSubmitArr = {
-    //     "type": "Feature",
-    //     "properties": {
-    //       "oldid": this.oldid,
-    //       "id": this.form.id,
-    //       "name": this.form.name,
-    //       "families": this.form.families,
-    //       "area": this.form.area,
-    //       "location": this.form.location,
-    //       "age": this.form.age,
-    //       "bustline": this.form.bustline,
-    //       "crown": this.form.crown,
-    //       "height": this.form.height,
-    //       "rank": this.form.rank,
-    //     }
-    //   }
-    //   let _formData = new FormData();
-    //   _formData.append("file", _fileObject)
-    //   _formData.append("id", JSON.stringify(editSubmitArr))
-    //   this.$refs.form.validate((valid) => {
-    //     if (valid) {
-    //       axios({
-    //         method: "post",
-    //         url: 'http://localhost:4000/upd',
-    //         data: _formData
-    //       }).then((res) => {
-    //         console.log(res.data);
-
-    //         this.hhh = res.data
-    //       })
-    //       this.resetForm();
-    //     }
-    //   });
-    // },
-
-
-
     editSubmit() {
       const editSubmitArr = {
         "type": "Feature",
@@ -204,13 +267,11 @@ export default {
           "height": this.form.height,
           "rank": this.form.rank,
         }
-      };
+      }
       let _formData = new FormData();
-      _formData.append("file", _fileObject);  // 上传的文件
-      _formData.append("id", JSON.stringify(editSubmitArr));  // 表单数据
-      _formData.append("page", this.currentPage);  // 当前页
-      _formData.append("pageSize", this.pageSize);  // 每页条数
-
+      _formData.append("file", _fileObject)
+      _formData.append("id", JSON.stringify(editSubmitArr))
+      console.log(JSON.stringify(editSubmitArr));  // 在前端打印数据，确保格式正确
       this.$refs.form.validate((valid) => {
         if (valid) {
           axios({
@@ -218,18 +279,12 @@ export default {
             url: 'http://localhost:4000/upd',
             data: _formData
           }).then((res) => {
-            // 更新分页数据
-            this.hhh = res.data.data; // 当前页数据
-            this.totalItems = res.data.totalItems; // 总记录数          
-          }).catch((error) => {
-            console.error('请求失败:', error);
-          });
-
+            this.hhh = res.data
+          })
           this.resetForm();
         }
       });
     },
-
     //处理form中的图片移除
     handleRemove() {
       const delPicData = {
@@ -318,38 +373,17 @@ export default {
       })
     },
 
-    // 初始化信息
-    fetchData(page = 1) {
-      axios
-        .get('http://localhost:4000/user', {
-          params: {
-            page: page,
-            pageSize: this.pageSize,
-          },
-        })
-        .then((res) => {
-          this.hhh = res.data.data; // 当前页的数据        
-          this.totalItems = res.data.totalCount; // 总记录数
-          this.currentPage = page; // 更新当前页码
-        })
-        .catch((err) => {
-          console.error('获取数据失败:', err);
-        });
-    },
-    // 处理页码改变
-    handlePageChange(page) {
-      this.fetchData(page); // 获取新页的数据
-    },
-
 
   },
 };
-</script>
+
+</script> 
 
 
 
 <template>
   <div class="userHeader">
+    
     <!-- 左边添加按钮 -->
     <el-button type="primary" @click="add()">
       添加
@@ -358,7 +392,7 @@ export default {
     <!-- 右侧search Form -->
     <el-form :inline="true" class="rightForm">
       <el-form-item>
-        <el-input v-model="rightSearchId" :clearable="true" @clear="fetchData(page)" placeholder="查询挂牌号"></el-input>
+        <el-input v-model="rightSearchId" :clearable="true" @clear="start()" placeholder="查询挂牌号"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="search"> 搜索 </el-button>
@@ -396,11 +430,8 @@ export default {
           <el-button size="small" type="danger" @click="handleDelete(scope)">删除</el-button>
         </template>
       </el-table-column>
+
     </el-table>
-
-    <el-pagination :current-page="currentPage" :page-size="pageSize" :total="Number(totalItems)"
-      layout="total, prev, pager, next, jumper" @current-change="handlePageChange" />
-
 
     <!--填写用户form信息弹窗 -->
     <el-dialog v-model="dialogVisible" title="南京市古树名木" width="800" :before-close="resetForm">

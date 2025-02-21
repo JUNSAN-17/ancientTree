@@ -6,38 +6,38 @@ export default {
     data() {
         return {
             list: [
-                { path: '/home', label: '主页', icon: 'ri-home-smile-fill' },
-                { path: '/treeData', label: '数据管理', icon: 'ri-user-fill' },
+                { path: '/main/home', label: '主页', icon: 'ri-home-smile-fill' },
+                { path: '/main/treeData', label: '数据管理', icon: 'ri-user-fill' },
                 {
                     label: '系统管理', path: '/others', children: [
-                        { path: '/userManagement', label: '用户管理', icon: 'ri-user-fill' },
-                        { path: '/roleManagement', label: '角色管理', icon: 'ri-user-fill' },
-                        { path: '/systemSetting', label: '系统设置', icon: 'ri-user-fill' },
+                        { path: '/main/userManagement', label: '用户管理', icon: 'ri-user-fill' },
+                        { path: '/main/roleManagement', label: '角色管理', icon: 'ri-user-fill' },
+                        { path: '/main/systemSetting', label: '系统设置', icon: 'ri-user-fill' },
                     ]
                 },
                 {
                     label: '图表统计', path: '/others1', children: [
-                        { path: '/treeStatistics', label: '古树名木统计', icon: 'ri-user-fill' },
-                        { path: '/userStatistics', label: '用户统计', icon: 'ri-user-fill' },
-                        { path: '/bigShow', label: '大屏展示', icon: 'ri-user-fill' },
+                        { path: '/main/treeStatistics', label: '古树名木统计', icon: 'ri-user-fill' },
+                        { path: '/main/userStatistics', label: '用户统计', icon: 'ri-user-fill' },
+                        { path: '/main/bigShow', label: '大屏展示', icon: 'ri-user-fill' },
                     ]
                 },
                 {
                     label: '古树地图', path: '/others1', children: [
-                        { path: '/mapShow', label: '地图展示', icon: 'ri-earth-fill' },
-                        { path: '/threeShow', label: '三维模型展示', icon: 'ri-user-fill' }
+                        { path: '/main/mapShow', label: '地图展示', icon: 'ri-earth-fill' },
+                        { path: '/main/threeShow', label: '三维模型展示', icon: 'ri-user-fill' }
                     ]
                 },
                 {
                     label: '公众互动', path: '/others1', children: [
-                        { path: '/chatOnline', label: '在线咨询', icon: 'ri-user-fill' },
-                        { path: '/bodyShow', label: '风采展示', icon: 'ri-user-fill' },
+                        { path: '/main/chatOnline', label: '在线咨询', icon: 'ri-user-fill' },
+                        { path: '/main/bodyShow', label: '风采展示', icon: 'ri-user-fill' },
                     ]
                 },
                 {
                     label: '专家诊断', path: '/others1', children: [
-                        { path: '/userAsk', label: '用户问询', icon: 'ri-user-fill' },
-                        { path: '/expertResponse', label: '专家回复', icon: 'ri-user-fill' }
+                        { path: '/main/userAsk', label: '用户问询', icon: 'ri-user-fill' },
+                        { path: '/main/expertResponse', label: '专家回复', icon: 'ri-user-fill' }
                     ]
                 },
             ],

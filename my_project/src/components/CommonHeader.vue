@@ -20,7 +20,7 @@
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item>个人中心</el-dropdown-item>
-                        <el-dropdown-item>退出</el-dropdown-item>
+                        <el-dropdown-item @click="logout">退出</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
 
@@ -47,6 +47,18 @@ export default {
     methods: {
         updateCollapse() {
             countStore.updateCollapse();
+        },
+        logout() {
+            // 清除 Pinia store 中的用户名
+            const userStore = useCounterStore();
+            userStore.setUsername(''); // 清空用户名
+
+            // 清除 localStorage 中的登录状态
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('username');
+
+            // 跳转到登录页面
+            this.$router.push('/');
         }
     },
 };
@@ -57,10 +69,10 @@ export default {
     height: 60px;
     display: flex;
     justify-content: space-between;
-    background: rgb(51, 59, 70); 
+    background: rgb(51, 59, 70);
     align-items: center;
     padding: 0 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 

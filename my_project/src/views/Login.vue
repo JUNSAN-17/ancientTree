@@ -173,6 +173,7 @@ export default {
     },
 
     // 登录方法
+
     async handleLogin() {
       try {
         const response = await axios.post("http://localhost:4000/login", {
@@ -181,14 +182,20 @@ export default {
         });
 
         if (response.data.message === "登录成功") {
-          const userData = response.data.username;
-          console.log(userData);
+          const userData = response.data.username; // 假设返回的用户名存储在 response.data.username
 
+          // 使用 Pinia store 来更新用户名
           const userStore = useCounterStore();
-          userStore.setUsername(userData);
+          userStore.setUsername(userData); // 更新用户名
 
-          ElMessage.success("登录成功！"); // 登录成功的提示
-          this.$router.push("/home");
+          // 存储登录状态到 localStorage
+          localStorage.setItem('isAuthenticated', 'true');
+          localStorage.setItem('username', userData);
+
+          ElMessage.success("登录成功！");
+
+          // 跳转到主页面
+          this.$router.push("/main/home");
         } else {
           alert("用户名或密码错误");
         }
@@ -197,6 +204,7 @@ export default {
         alert("登录请求失败，请稍后再试");
       }
     },
+
 
     handleRegister() {
       this.$refs.form.validate(async (valid) => {
@@ -227,7 +235,7 @@ export default {
           address: this.form.address,     // 地址字段
         });
         if (response.data === '注册成功') {
-          this.$router.push('/home');
+          this.$router.push('/main/home');
         } else {
           alert(response.data);
         }
