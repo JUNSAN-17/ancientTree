@@ -57,8 +57,8 @@ export default {
       axios.get('http://localhost:4000/allTree')  // 调用后端接口
         .then(response => {
           this.treeData = response.data;  // 存储数据
-          this.statisticalAreaCount();  // 统计area的出现次数
-          this.statisticalRankCount();  // 统计rank的出现次数
+          this.stsAreaCount();  // 统计area的出现次数
+          this.stsRankCount();  // 统计rank的出现次数
           this.initCharts();  // 初始化图表
         })
         .catch(error => {
@@ -67,7 +67,7 @@ export default {
     },
 
     // 统计area出现的次数
-    statisticalAreaCount() {
+    stsAreaCount() {
       this.areaCount = this.treeData.reduce((acc, item) => {
         const area = item.area;  // 获取area属性
         if (area) {
@@ -79,7 +79,7 @@ export default {
     },
 
     // 统计rank出现的次数
-    statisticalRankCount() {
+    stsRankCount() {
       this.rankCount = this.treeData.reduce((acc, item) => {
         const rank = item.rank;  // 获取rank属性
         if (rank) {
@@ -192,7 +192,7 @@ export default {
               inRange: {
                 color: ['#f1c40f', '#e74c3c', '#8e44ad'], // 根据数量设置颜色渐变
               },
-              text: ['High', 'Low'],
+              text: ['高', '低'],
               show: true,  // 显示颜色映射
             },
             series: [

@@ -1,0 +1,203 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [119.48698672, 29.8808455],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69b0",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330100",
+        "bbox": [119.48698672, 29.8808455, 119.48698672, 29.8808455],
+        "name": "杭州市",
+        "alias": "杭州市",
+        "id": 35
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [120.35526638, 27.872309],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69af",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330300",
+        "bbox": [120.35526638, 27.872309, 120.35526638, 27.872309],
+        "name": "温州市",
+        "alias": "温州市",
+        "id": 36
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [120.97004612, 28.6775095],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ae",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "331000",
+        "bbox": [120.97004612, 28.6775095, 120.97004612, 28.6775095],
+        "name": "台州市",
+        "alias": "台州市",
+        "id": 37
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [119.59694953, 28.1842845],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ad",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "331100",
+        "bbox": [119.59694953, 28.1842845, 119.59694953, 28.1842845],
+        "name": "丽水市",
+        "alias": "丽水市",
+        "id": 38
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [122.13726181, 30.0608605],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ac",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330900",
+        "bbox": [122.13726181, 30.0608605, 122.13726181, 30.0608605],
+        "name": "舟山市",
+        "alias": "舟山市",
+        "id": 39
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [120.79053379, 30.6493255],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ab",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330400",
+        "bbox": [120.79053379, 30.6493255, 120.79053379, 30.6493255],
+        "name": "嘉兴市",
+        "alias": "嘉兴市",
+        "id": 425
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [120.00344414, 30.7766425],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69aa",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330500",
+        "bbox": [120.00344414, 30.7766425, 120.00344414, 30.7766425],
+        "name": "湖州市",
+        "alias": "湖州市",
+        "id": 445
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [121.53854255, 29.76803],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a9",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330200",
+        "bbox": [121.53854255, 29.76803, 121.53854255, 29.76803],
+        "name": "宁波市",
+        "alias": "宁波市",
+        "id": 452
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [120.51675818, 29.7556925],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a8",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330600",
+        "bbox": [120.51675818, 29.7556925, 120.51675818, 29.7556925],
+        "name": "绍兴市",
+        "alias": "绍兴市",
+        "id": 453
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [120.00536886, 29.103397],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a7",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330700",
+        "bbox": [120.00536886, 29.103397, 120.00536886, 29.103397],
+        "name": "金华市",
+        "alias": "金华市",
+        "id": 455
+      }
+    },
+    {
+      "geometry": {
+        "coordinates": [118.80321485, 28.8664875],
+        "type": "Point"
+      },
+      "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a5",
+      "geometry_name": "geom",
+      "type": "Feature",
+      "properties": {
+        "parent_name": "浙江省",
+        "parent": "330000",
+        "adcode": "330800",
+        "bbox": [118.80321485, 28.8664875, 118.80321485, 28.8664875],
+        "name": "衢州市",
+        "alias": "衢州市",
+        "id": 456
+      }
+    }
+  ]
+}
