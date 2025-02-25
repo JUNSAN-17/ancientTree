@@ -112,10 +112,10 @@ app.post('/updtable', (req, res) => {
     let sql, values;
 
     if (judge) {
-      sql = "UPDATE public.tree SET index1 = $1, index2 = $2 WHERE id = $3";
+      sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2 WHERE id = $3";
       values = [index1, index2, item];
     } else {
-      sql = "UPDATE public.tree SET index1 = $1, index2 = $2 WHERE id = $3";
+      sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2 WHERE id = $3";
       values = [index, 0, item];
     }
 
@@ -135,28 +135,29 @@ app.post('/updtable', (req, res) => {
 
 
 // 获取每一个数据的接口
-// app.get('/user', (req, res) => {
-//   const sql = "SELECT * FROM public.tree ORDER BY index1, index2 ASC";
-//   s.select(sql, [], (err, result) => {
-//     if (err) {
-//       console.error(err);
-//       return res.status(500).send('查询失败');
-//     }
-//     res.send(result.rows);
-//   });
-// });
+app.get('/allTree', (req, res) => {
+  const sql = "SELECT * FROM public.tree3 ORDER BY index1, index2 ASC";
+  s.select(sql, [], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('查询失败');
+    }
+    res.send(result.rows);     
+  });
+});
 
-app.get('/user', (req, res) => {
+//获取分页的数据
+app.get('/treeData', (req, res) => {
   const page = parseInt(req.query.page) || 1; // 当前页码，默认为1
   const pageSize = parseInt(req.query.pageSize) || 7; // 每页条数，默认为10
   const offset = (page - 1) * pageSize; // 计算偏移量
 
   // 获取总记录数的 SQL
-  const sqlCount = "SELECT COUNT(*) FROM public.tree";
+  const sqlCount = "SELECT COUNT(*) FROM public.tree3";
   // 获取分页数据的 SQL
   const sqlData = `
     SELECT * 
-    FROM public.tree
+    FROM public.tree3
     ORDER BY index1, index2 ASC
     LIMIT $1 OFFSET $2
   `;
@@ -183,7 +184,7 @@ app.get('/user', (req, res) => {
         data: result.rows,
         totalCount: totalCount,
         totalPages: totalPages,
-        currentPage:page,
+        currentPage: page,
       });
     });
   });
@@ -193,7 +194,7 @@ app.get('/user', (req, res) => {
 // 右侧搜索框的数据接口
 app.post('/search', (req, res) => {
   const rightSearchId = req.body.rightSearchId;
-  const sql = "SELECT * FROM public.tree WHERE id = $1";
+  const sql = "SELECT * FROM public.tree3 WHERE id = $1";
   s.select(sql, [rightSearchId], (err, result) => {
     if (err) {
       console.error(err);
@@ -204,9 +205,45 @@ app.post('/search', (req, res) => {
 });
 
 
+// // add增加数据的接口
+// app.post('/add', upload.single('file'), (req, res) => {
+//   const body = JSON.parse(req.body.id);
+//   const data = body.properties;
+//   const item = data.id;
+//   const num = item.indexOf('-');
+//   const index = +item;
+//   const index1 = +item.slice(0, num);
+//   const index2 = +item.substr(num + 1);
+//   const judge = item.includes('-');
+//   let src = req.file ? req.file.originalname : "tree3.png";
+//   let sql, values;
+
+//   if (judge) {
+//     sql = "INSERT INTO public.tree(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+//     values = [index1, index2, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src];
+//   } else {
+//     sql = "INSERT INTO public.tree(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+//     values = [index, 0, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src];
+//   }
+
+//   s.insert(sql, values, (err, result) => {
+//     if (err) {
+//       console.error(err);
+//       return res.status(500).send('添加失败');
+//     }
+//     s.select("SELECT * FROM public.tree ORDER BY index1, index2 ASC", [], (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).send('查询失败');
+//       }
+//       res.send(result.rows);
+//     });
+//   });
+// });
+
 // add增加数据的接口
 app.post('/add', upload.single('file'), (req, res) => {
-  const body = JSON.parse(req.body.id);
+  const body = JSON.parse(req.body.id);  // 从前端获取数据
   const data = body.properties;
   const item = data.id;
   const num = item.indexOf('-');
@@ -214,55 +251,121 @@ app.post('/add', upload.single('file'), (req, res) => {
   const index1 = +item.slice(0, num);
   const index2 = +item.substr(num + 1);
   const judge = item.includes('-');
-  let src = req.file ? req.file.originalname : "tree3.png";
+
+  let src = req.file ? req.file.originalname : "tree3.png";  // 如果没有文件上传，使用默认图片
+
   let sql, values;
 
+  // 判断数据id的格式，选择插入SQL语句
   if (judge) {
-    sql = "INSERT INTO public.tree(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+    sql = "INSERT INTO public.tree3(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
     values = [index1, index2, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src];
   } else {
-    sql = "INSERT INTO public.tree(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+    sql = "INSERT INTO public.tree3(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
     values = [index, 0, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src];
   }
 
+  // 执行插入操作
   s.insert(sql, values, (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).send('添加失败');
     }
-    s.select("SELECT * FROM public.tree ORDER BY index1, index2 ASC", [], (err, result) => {
+
+    // 插入成功后，查询总记录数和当前页的数据
+    const page = req.query.page || 1;  // 当前页，默认为1
+    const pageSize = req.query.pageSize || 7;  // 每页显示数量，默认为7
+
+    // 查询数据总数
+    s.select("SELECT COUNT(*) AS totalItems FROM public.tree3", [], (err, result) => {
       if (err) {
         console.error(err);
         return res.status(500).send('查询失败');
       }
-      res.send(result.rows);
+
+      const totalItems = result.rows[0].totalitems;          
+
+      // 查询当前页的数据
+      const offset = (page - 1) * pageSize;
+      s.select("SELECT * FROM public.tree3 ORDER BY index1, index2 ASC LIMIT $1 OFFSET $2", [pageSize, offset], (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send('查询失败');
+        }
+        // 返回总记录数和当前页的数据
+        res.send({
+          data: result.rows,  // 当前页数据
+          totalItems: totalItems,  // 总记录数
+          currentPage: page,  // 当前页码
+        });
+      });
     });
   });
 });
 
 
 // delete删除数据的接口
+// app.post('/del', (req, res) => {
+//   const id = req.body.id;
+//   const sql = "DELETE FROM public.tree WHERE id = $1";
+//   s.delete(sql, [id], (err, result) => {
+//     if (err) {
+//       console.error(err);
+//       return res.status(500).send('删除失败');
+//     }
+//     s.select("SELECT * FROM public.tree ORDER BY index1 ASC", [], (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).send('查询失败');
+//       }
+//       res.send(result.rows);
+//     });
+//   });
+// });
 app.post('/del', (req, res) => {
   const id = req.body.id;
-  const sql = "DELETE FROM public.tree WHERE id = $1";
+  const page = req.body.page || 1;  // 当前页，默认为1
+  const pageSize = req.body.pageSize || 7;  // 每页显示数量，默认为7
+
+  const sql = "DELETE FROM public.tree3 WHERE id = $1";
   s.delete(sql, [id], (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).send('删除失败');
     }
-    s.select("SELECT * FROM public.tree ORDER BY index1 ASC", [], (err, result) => {
+
+    // 删除成功后查询总记录数和当前页数据
+    s.select("SELECT COUNT(*) AS totalItems FROM public.tree3", [], (err, result) => {
       if (err) {
         console.error(err);
         return res.status(500).send('查询失败');
       }
-      res.send(result.rows);
+
+      const totalItems = result.rows[0].totalitems;
+
+      // 查询当前页的数据
+      const offset = (page - 1) * pageSize;
+      s.select("SELECT * FROM public.tree3 ORDER BY index1 ASC LIMIT $1 OFFSET $2", [pageSize, offset], (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send('查询失败');
+        }
+
+        // 返回数据和分页信息
+        res.send({
+          data: result.rows,  // 当前页数据
+          totalItems: totalItems,  // 总记录数
+          currentPage: page,  // 当前页码
+        });
+      });
     });
   });
 });
 
+
 app.post('/delPic', (req, res) => {
   const id = req.body.id;
-  const sql = "UPDATE public.tree SET src = NULL WHERE id = $1";
+  const sql = "UPDATE public.tree3 SET src = NULL WHERE id = $1";
   s.delete(sql, [id], (err, result) => {
     if (err) {
       console.error(err);
@@ -323,15 +426,14 @@ app.post('/upd', upload.single('file'), (req, res) => {
   const index1 = +item.slice(0, num);
   const index2 = +item.substr(num + 1);
   const judge = item.includes('-');
-  console.log(req.file);  
-  let src = req.file ? req.file.originalname : '';  // 确保文件存在时取文件名
+  let src = req.file ? req.file.originalname : data.src;  // 确保文件存在时取文件名
   let sql, values;
 
   if (judge) {
-    sql = "UPDATE public.tree SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
+    sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
     values = [index1, index2, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src, data.oldid];
   } else {
-    sql = "UPDATE public.tree SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
+    sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
     values = [index, 0, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src, data.oldid];
   }
 
@@ -340,15 +442,15 @@ app.post('/upd', upload.single('file'), (req, res) => {
       console.error(err);
       return res.status(500).send('更新失败');
     }
-    
+
     // 获取分页数据
     const page = req.body.page || 1; // 当前页码
     const pageSize = req.body.pageSize || 7; // 每页显示数量
     const offset = (page - 1) * pageSize;
     console.log(page);
-    
 
-    const countSql = "SELECT COUNT(*) FROM public.tree"; // 获取总记录数
+
+    const countSql = "SELECT COUNT(*) FROM public.tree3"; // 获取总记录数
     s.select(countSql, [], (err, countResult) => {
       if (err) {
         console.error(err);
@@ -358,7 +460,7 @@ app.post('/upd', upload.single('file'), (req, res) => {
       const totalItems = countResult.rows[0].count;
 
       // 检查当前页是否有效
-      const dataSql = `SELECT * FROM public.tree ORDER BY index1, index2 ASC LIMIT $1 OFFSET $2`; // 查询分页数据
+      const dataSql = `SELECT * FROM public.tree3 ORDER BY index1, index2 ASC LIMIT $1 OFFSET $2`; // 查询分页数据
       s.select(dataSql, [pageSize, offset], (err, result) => {
         if (err) {
           console.error(err);
@@ -376,9 +478,9 @@ app.post('/upd', upload.single('file'), (req, res) => {
               return res.status(500).send('查询上一页数据失败');
             }
             res.send({
-              data: prevResult.rows, 
-              totalItems, 
-              currentPage: prevPage, 
+              data: prevResult.rows,
+              totalItems,
+              currentPage: prevPage,
               pageSize
             });
           });

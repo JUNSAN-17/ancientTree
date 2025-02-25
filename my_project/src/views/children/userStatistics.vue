@@ -1,5 +1,5 @@
 <template>
-    woshi pg2 zujian 
+    woshi userStatistics zujian 
 </template>
 
 <style>

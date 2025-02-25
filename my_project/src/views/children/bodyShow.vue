@@ -1,5 +1,5 @@
 <template>
-    woshi pg3 zujian 
+    woshi bodyShow zujian 
 </template>
 
 <style>

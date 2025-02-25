@@ -9,40 +9,75 @@ const router = createRouter({
       component: () => import('../views/Main.vue'),
       children: [
         {
-          path: 'home',  // 使用相对路径
+          path: 'home',
           name: 'home',
           component: () => import('../views/children/home.vue')
         },
         {
-          path: 'treeData', // 使用相对路径
+          path: 'treeData',
           name: 'treeData',
           component: () => import('../views/children/treeData.vue')
         },
         {
-          path: 'mapShow', // 使用相对路径
+          path: 'mapShow',
           name: 'mapShow',
           component: () => import('../views/children/mapShow_copy.vue')
         },
         {
-          path: 'page2', // 使用相对路径
-          name: 'page2',
-          component: () => import('../views/children/page2.vue')
+          path: 'userManagement',
+          name: 'userManagement',
+          component: () => import('../views/children/userManagement.vue')
         },
         {
-          path: 'page3', // 使用相对路径
-          name: 'page3',
-          component: () => import('../views/children/page3.vue')
+          path: 'roleManagement',
+          name: 'roleManagement',
+          component: () => import('../views/children/roleManagement.vue')
         },
         {
-          path: 'page4', // 使用相对路径
-          name: 'page4',
-          component: () => import('../views/children/page4.vue')
+          path: 'systemSetting',
+          name: 'systemSetting',
+          component: () => import('../views/children/systemSetting.vue')
         },
         {
-          path: 'page5', // 使用相对路径
-          name: 'page5',
-          component: () => import('../views/children/page5.vue')
-        }
+          path: 'treeStatistics',
+          name: 'treeStatistics',
+          component: () => import('../views/children/treeStatistics.vue')
+        },
+        {
+          path: 'userStatistics',
+          name: 'userStatistics',
+          component: () => import('../views/children/userStatistics.vue')
+        },
+        {
+          path: 'bigShow',
+          name: 'bigShow',
+          component: () => import('../views/children/bigShow.vue')
+        },
+        {
+          path: 'threeShow',
+          name: 'threeShow',
+          component: () => import('../views/children/threeShow.vue')
+        },
+        {
+          path: 'chatOnline',
+          name: 'chatOnline',
+          component: () => import('../views/children/chatOnline.vue')
+        },
+        {
+          path: 'bodyShow',
+          name: 'bodyShow',
+          component: () => import('../views/children/bodyShow.vue')
+        },
+        {
+          path: 'userAsk',
+          name: 'userAsk',
+          component: () => import('../views/children/userAsk.vue')
+        },
+        {
+          path: 'expertResponse',
+          name: 'expertResponse',
+          component: () => import('../views/children/expertResponse.vue')
+        },
       ]
     },
     {

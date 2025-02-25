@@ -23,19 +23,19 @@ export default {
                     ]
                 },
                 {
-                    label: '古树地图', path: '/others1', children: [
+                    label: '古树地图', path: '/others2', children: [
                         { path: '/main/mapShow', label: '地图展示', icon: 'ri-earth-fill' },
                         { path: '/main/threeShow', label: '三维模型展示', icon: 'ri-user-fill' }
                     ]
                 },
                 {
-                    label: '公众互动', path: '/others1', children: [
+                    label: '公众互动', path: '/others3', children: [
                         { path: '/main/chatOnline', label: '在线咨询', icon: 'ri-user-fill' },
                         { path: '/main/bodyShow', label: '风采展示', icon: 'ri-user-fill' },
                     ]
                 },
                 {
-                    label: '专家诊断', path: '/others1', children: [
+                    label: '专家诊断', path: '/others4', children: [
                         { path: '/main/userAsk', label: '用户问询', icon: 'ri-user-fill' },
                         { path: '/main/expertResponse', label: '专家回复', icon: 'ri-user-fill' }
                     ]

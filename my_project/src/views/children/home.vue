@@ -21,7 +21,7 @@
           <div class="event-header">
             <h2>正在处理中的事件</h2>
           </div>
-          <el-row gutter="20">
+          <el-row :gutter="20">
             <el-col :span="8">
               <el-card class="event-item">
                 <div class="event-info">

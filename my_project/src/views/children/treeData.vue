@@ -15,13 +15,15 @@ export default {
         bustline: "",
         crown: "",
         height: "",
-        rank: ""
+        rank: "",
+        src: "",
+        lonLat: ""
       },
       hhh: [],
       rules: {
         id: [
           { required: true, message: "请输入编号", trigger: "blur" },
-          { min: 0, max: 10, message: "Length should be 0 to 10", trigger: "blur" },
+          { min: 0, max: 10, message: "长度应该在0-10之间", trigger: "blur" },
           { validator: this.checkUsername, trigger: 'blur', },
         ],
       },
@@ -108,6 +110,7 @@ export default {
       this.index = null;
       // this.updatatable()
     },
+
     // 点击add按钮后的确定按钮
     submit() {
       const feature = {
@@ -124,31 +127,100 @@ export default {
           "height": this.form.height,
           "rank": this.form.rank,
         }
-      }
-      let _formData = new FormData()
-      _formData.append("file", _fileObject)
-      _formData.append("id", JSON.stringify(feature))
+      };
 
+      let _formData = new FormData();
+      _formData.append("file", this._fileObject);  // 假设你已经定义了 _fileObject
+      _formData.append("id", JSON.stringify(feature));  // 将表单数据转换为JSON字符串
+      _formData.append("page", this.currentPage);  // 当前页
+      _formData.append("pageSize", this.pageSize);  // 每页条数
+
+      // 验证表单
       this.$refs.form.validate((valid) => {
         if (valid) {
+          // 发送POST请求到后端接口
           axios({
             method: "post",
-            url: 'http://localhost:4000/add',
+            url: 'http://localhost:4000/add',  // 假设这是你的新增数据的接口
             data: _formData
           }).then((res) => {
-            this.hhh = res.data
-            console.log(res.data);
+            // 更新当前页数据和总记录数
+            this.hhh = res.data.data;  // 当前页数据
+            let totalItems = res.data.totalItems;
 
-            console.log(this.form.id);
+            // 确保 totalItems 是一个有效的数字
+            if (isNaN(totalItems)) {
+              console.error('Invalid totalItems:', totalItems);
+              totalItems = 0;  // 如果无效，则赋值为0
+            }
+
+            this.totalItems = totalItems;  // 更新总记录数
+
+            // 使用 $nextTick 确保分页组件可以更新
+            this.$nextTick(() => {
+              // 不直接修改 ElPagination 的 total 属性，而是更新 totalItems
+              // 这样 Vue 会处理正确的更新流程
+            });
+
+            // 清空表单
             this.resetForm();
+
+            // 提示成功信息
             this.$message({
               type: "success",
               message: "添加成功",
-            })
-          })
+            });
+          }).catch((error) => {
+            console.error('请求失败:', error);
+            this.$message({
+              type: "error",
+              message: "添加失败",
+            });
+          });
         }
       });
     },
+    // // 点击add按钮后的确定按钮
+    // submit() {
+    //   const feature = {
+    //     "type": "Feature",
+    //     "properties": {
+    //       "id": this.form.id,
+    //       "name": this.form.name,
+    //       "families": this.form.families,
+    //       "area": this.form.area,
+    //       "location": this.form.location,
+    //       "age": this.form.age,
+    //       "bustline": this.form.bustline,
+    //       "crown": this.form.crown,
+    //       "height": this.form.height,
+    //       "rank": this.form.rank,
+    //     }
+    //   }
+    //   let _formData = new FormData()
+    //   _formData.append("file", _fileObject)
+    //   _formData.append("id", JSON.stringify(feature))
+
+    //   this.$refs.form.validate((valid) => {
+    //     if (valid) {
+    //       axios({
+    //         method: "post",
+    //         url: 'http://localhost:4000/add',
+    //         data: _formData
+    //       }).then((res) => {
+    //         this.hhh = res.data
+    //         console.log(res.data);
+
+    //         console.log(this.form.id);
+    //         this.resetForm();
+    //         this.$message({
+    //           type: "success",
+    //           message: "添加成功",
+    //         })
+    //       })
+    //     }
+    //   });
+    // },
     // 点击edit后的确定按钮
     // editSubmit() {
     //   const editSubmitArr = {
@@ -185,9 +257,6 @@ export default {
     //     }
     //   });
     // },
-
-
-
     editSubmit() {
       const editSubmitArr = {
         "type": "Feature",
@@ -203,10 +272,12 @@ export default {
           "crown": this.form.crown,
           "height": this.form.height,
           "rank": this.form.rank,
+          "src": this.form.src,
         }
       };
       let _formData = new FormData();
       _formData.append("file", _fileObject);  // 上传的文件
+
       _formData.append("id", JSON.stringify(editSubmitArr));  // 表单数据
       _formData.append("page", this.currentPage);  // 当前页
       _formData.append("pageSize", this.pageSize);  // 每页条数
@@ -272,15 +343,47 @@ export default {
       this.form.crown = item.row.crown
       this.form.height = item.row.height
       this.form.rank = item.row.rank
+      this.form.src = item.row.src
       this.index = item.$index;
       this.oldid = item.row.id
       this.fileList.push({ url: "http://localhost:4000/" + item.row.src })
       console.log(item.row.src);
     },
     // tableDelete 按钮
+    // handleDelete(item) {
+    //   const id = item.row.id
+    //   console.log(item.row.id);
+    //   this.$confirm("你确定要删除吗？", {
+    //     confirmButtonText: "确认",
+    //     cancelButtonText: "取消",
+    //     type: "warning",
+    //   }).then(() => {
+    //     axios({
+    //       method: "post",
+    //       url: 'http://localhost:4000/del',
+    //       data: { id }
+    //     }).then((res) => {
+    //       this.hhh = res.data
+    //     })
+    //     this.$message({
+    //       type: "success",
+    //       message: "删除成功",
+    //     });
+    //   })
+    //     .catch(() => {
+    //       this.$message({
+    //         type: "info",
+    //         message: "取消删除",
+    //       });
+    //     });
+    // },
     handleDelete(item) {
-      const id = item.row.id
-      console.log(item.row.id);
+      const id = item.row.id;
+      const currentPage = this.currentPage;  // 获取当前页码
+      const pageSize = this.pageSize;        // 获取每页显示的数量
+
+      console.log("Deleting item with id:", id);
+
       this.$confirm("你确定要删除吗？", {
         confirmButtonText: "确认",
         cancelButtonText: "取消",
@@ -289,22 +392,32 @@ export default {
         axios({
           method: "post",
           url: 'http://localhost:4000/del',
-          data: { id }
+          data: {
+            id,
+            page: currentPage,  // 当前页
+            pageSize: pageSize   // 每页条数
+          }
         }).then((res) => {
-          this.hhh = res.data
-        })
+          // 更新当前页的数据
+          this.hhh = res.data.data;
+          this.totalItems = res.data.totalItems;  // 更新总记录数
+          console.log(res.data);  // 调试输出
+        }).catch((error) => {
+          console.error("删除失败:", error);
+        });
+
         this.$message({
           type: "success",
           message: "删除成功",
         });
-      })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消删除",
-          });
+      }).catch(() => {
+        this.$message({
+          type: "info",
+          message: "取消删除",
         });
+      });
     },
+
     // 右侧搜索按钮
     search() {
       const rightSearchId = this.rightSearchId
@@ -321,7 +434,7 @@ export default {
     // 初始化信息
     fetchData(page = 1) {
       axios
-        .get('http://localhost:4000/user', {
+        .get('http://localhost:4000/treeData', {
           params: {
             page: page,
             pageSize: this.pageSize,
@@ -340,8 +453,6 @@ export default {
     handlePageChange(page) {
       this.fetchData(page); // 获取新页的数据
     },
-
-
   },
 };
 </script>
@@ -398,7 +509,7 @@ export default {
       </el-table-column>
     </el-table>
 
-    <el-pagination :current-page="currentPage" :page-size="pageSize" :total="Number(totalItems)"
+    <el-pagination ref="pagination" :current-page="currentPage" :page-size="pageSize" :total="Number(totalItems)"
       layout="total, prev, pager, next, jumper" @current-change="handlePageChange" />
 
 
@@ -444,6 +555,11 @@ export default {
         <el-form-item label="等级">
           <el-input v-model="form.rank"></el-input>
         </el-form-item>
+
+        <el-form-item label="经纬度">
+          <el-input v-model="form.lonLat"></el-input>
+        </el-form-item>
+        <br>
 
         <el-form-item label="添加图片">
           <el-upload action="" list-type="picture-card" :file-list="fileList" :on-change="fileChange"
