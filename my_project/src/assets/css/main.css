@@ -10,4 +10,15 @@ body {
 
 .mapboxgl-ctrl-bottom-left {
     display: none !important;
-  }
+}
+
+.mapboxgl-popup-content {
+    border: 1px solid rgb(4, 216, 249) !important;
+    background: rgba(18, 82, 244, 0.5) !important;
+    color: white !important;
+    border-radius: 10px !important;
+}
+
+.mapboxgl-popup-close-button {
+    color: white !important;
+}

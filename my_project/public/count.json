@@ -1,13 +1,13 @@
 [
-  { "adcode": "330100", "count": 43 },
-  { "adcode": "330200", "count": 193 },
-  { "adcode": "330300", "count": 76 },
-  { "adcode": "330400", "count": 58 },
-  { "adcode": "330500", "count": 21 },
-  { "adcode": "330600", "count": 52 },
-  { "adcode": "330700", "count": 32 },
-  { "adcode": "330800", "count": 146 },
-  { "adcode": "330900", "count": 83 },
-  { "adcode": "331000", "count": 72 },
-  { "adcode": "331100", "count": 63 }
+  { "adcode": "320102", "count": 43 },
+  { "adcode": "320104", "count": 193 },
+  { "adcode": "320105", "count": 76 },
+  { "adcode": "320106", "count": 58 },
+  { "adcode": "320111", "count": 21 },
+  { "adcode": "320113", "count": 52 },
+  { "adcode": "320114", "count": 32 },
+  { "adcode": "320115", "count": 146 },
+  { "adcode": "320116", "count": 83 },
+  { "adcode": "320117", "count": 72 },
+  { "adcode": "320118", "count": 63 }
 ]

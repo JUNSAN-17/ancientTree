@@ -3,199 +3,287 @@
   "features": [
     {
       "geometry": {
-        "coordinates": [119.48698672, 29.8808455],
+        "coordinates": [
+          118.84193900763125,
+          32.07195666878361
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69b0",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330100",
-        "bbox": [119.48698672, 29.8808455, 119.48698672, 29.8808455],
-        "name": "杭州市",
-        "alias": "杭州市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320102",
+        "bbox": [
+          118.84193900763125,
+          32.07195666878361,
+          118.84193900763125,
+          32.07195666878361
+        ],
+        "name": "玄武区",
+        "alias": "玄武区",
         "id": 35
       }
     },
     {
       "geometry": {
-        "coordinates": [120.35526638, 27.872309],
+        "coordinates": [
+          118.808088,
+          31.99998
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69af",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330300",
-        "bbox": [120.35526638, 27.872309, 120.35526638, 27.872309],
-        "name": "温州市",
-        "alias": "温州市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320104",
+        "bbox": [
+          118.776088,
+          32.093818,
+          118.786088,
+          32.033818
+        ],
+        "name": "秦淮区",
+        "alias": "秦淮区",
         "id": 36
       }
     },
     {
       "geometry": {
-        "coordinates": [120.97004612, 28.6775095],
+        "coordinates": [
+          118.70475988477568,
+          32.013939877673934
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ae",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "331000",
-        "bbox": [120.97004612, 28.6775095, 120.97004612, 28.6775095],
-        "name": "台州市",
-        "alias": "台州市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320105",
+        "bbox": [
+          118.732688,
+          32.004538,
+          118.732688,
+          32.004538
+        ],
+        "name": "建邺区",
+        "alias": "建邺区",
         "id": 37
       }
     },
     {
       "geometry": {
-        "coordinates": [119.59694953, 28.1842845],
+        "coordinates": [
+          118.75391714644002,
+          32.085348070934145
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ad",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "331100",
-        "bbox": [119.59694953, 28.1842845, 119.59694953, 28.1842845],
-        "name": "丽水市",
-        "alias": "丽水市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320106",
+        "bbox": [
+          118.769739,
+          32.066966,
+          118.769739,
+          32.066966
+        ],
+        "name": "鼓楼区",
+        "alias": "鼓楼区",
         "id": 38
       }
     },
     {
       "geometry": {
-        "coordinates": [122.13726181, 30.0608605],
+        "coordinates": [
+          118.625307,
+          32.05839
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ac",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330900",
-        "bbox": [122.13726181, 30.0608605, 122.13726181, 30.0608605],
-        "name": "舟山市",
-        "alias": "舟山市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320111",
+        "bbox": [
+          118.625307,
+          32.05839,
+          118.625307,
+          32.05839
+        ],
+        "name": "浦口区",
+        "alias": "浦口区",
         "id": 39
       }
     },
     {
       "geometry": {
-        "coordinates": [120.79053379, 30.6493255],
+        "coordinates": [
+          118.91875404763141,
+          32.13553052949986
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69ab",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330400",
-        "bbox": [120.79053379, 30.6493255, 120.79053379, 30.6493255],
-        "name": "嘉兴市",
-        "alias": "嘉兴市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320113",
+        "bbox": [
+          118.808702,
+          32.102147,
+          118.808702,
+          32.102147
+        ],
+        "name": "栖霞区",
+        "alias": "栖霞区",
         "id": 425
       }
     },
     {
       "geometry": {
-        "coordinates": [120.00344414, 30.7766425],
+        "coordinates": [
+          118.7041282943265,
+          31.943371912765244
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69aa",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330500",
-        "bbox": [120.00344414, 30.7766425, 120.00344414, 30.7766425],
-        "name": "湖州市",
-        "alias": "湖州市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320114",
+        "bbox": [
+          118.77207,
+          31.995946,
+          118.77207,
+          31.995946
+        ],
+        "name": "雨花台区",
+        "alias": "雨花台区",
         "id": 445
       }
     },
     {
       "geometry": {
-        "coordinates": [121.53854255, 29.76803],
+        "coordinates": [
+          118.83263063753293,
+          31.83603540345672
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a9",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330200",
-        "bbox": [121.53854255, 29.76803, 121.53854255, 29.76803],
-        "name": "宁波市",
-        "alias": "宁波市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320115",
+        "bbox": [
+          118.850621,
+          31.953418,
+          118.850621,
+          31.953418
+        ],
+        "name": "江宁区",
+        "alias": "江宁区",
         "id": 452
       }
     },
     {
       "geometry": {
-        "coordinates": [120.51675818, 29.7556925],
+        "coordinates": [
+          118.85065,
+          32.340655
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a8",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330600",
-        "bbox": [120.51675818, 29.7556925, 120.51675818, 29.7556925],
-        "name": "绍兴市",
-        "alias": "绍兴市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320116",
+        "bbox": [
+          118.85065,
+          32.340655,
+          118.85065,
+          32.340655
+        ],
+        "name": "六合区",
+        "alias": "六合区",
         "id": 453
       }
     },
     {
       "geometry": {
-        "coordinates": [120.00536886, 29.103397],
+        "coordinates": [
+          119.028732,
+          31.653061
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a7",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330700",
-        "bbox": [120.00536886, 29.103397, 120.00536886, 29.103397],
-        "name": "金华市",
-        "alias": "金华市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320117",
+        "bbox": [
+          119.028732,
+          31.653061,
+          119.028732,
+          31.653061
+        ],
+        "name": "溧水区",
+        "alias": "溧水区",
         "id": 455
       }
     },
     {
       "geometry": {
-        "coordinates": [118.80321485, 28.8664875],
+        "coordinates": [
+          118.95954125246499,
+          31.32010178103907
+        ],
         "type": "Point"
       },
       "id": "v_city_center.fid--5496cec8_18a81cab8e7_-69a5",
       "geometry_name": "geom",
       "type": "Feature",
       "properties": {
-        "parent_name": "浙江省",
-        "parent": "330000",
-        "adcode": "330800",
-        "bbox": [118.80321485, 28.8664875, 118.80321485, 28.8664875],
-        "name": "衢州市",
-        "alias": "衢州市",
+        "parent_name": "南京市",
+        "parent": "320100",
+        "adcode": "320118",
+        "bbox": [
+          118.87589,
+          31.327132,
+          118.87589,
+          31.327132
+        ],
+        "name": "高淳区",
+        "alias": "高淳区",
         "id": 456
       }
     }

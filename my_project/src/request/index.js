@@ -1,32 +1,51 @@
-const express = require('express')
-const app = express()
-const port = 4000
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const multer = require('multer');
+const path = require('path');
+const Service = require("./pgService");  // 你的数据库服务
+const app = express();
+const port = 4000;
 
-// 解析前端formdata的中间件
-const multer = require('multer')
-//引入path模块
-const path = require("path")
-//multer的相关配置
+// multer 配置，处理文件上传
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, 'uploads/'); // 设置文件上传目录
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, file.originalname); // 使用原文件名
   }
-})
-// 写图片保存在哪
-// const upload = multer({ dest: 'uploads/' })
-const upload = multer({ storage })
+});
+const upload = multer({ storage });
 
-// 引入解析请求体的中间件
-app.use(express.json())
-// 访问静态资源的中间件
-app.use(express.static(path.resolve(__dirname, "./uploads")))
-// 引入数据库的js
-const Service = require("./pgService")
-// 创建数据库的一个实例
-const s = new Service()
+
+
+// 解决跨域问题
+app.all("*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "content-type");
+  res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
+  if (req.method.toLowerCase() == "options") {
+    res.send(200); // 让 options 尝试请求快速结束
+  } else {
+    next();
+  }
+});
+
+// 设置文件上传路由
+app.use(express.json());
+app.use(express.static(path.resolve(__dirname, "./uploads")));  // 访问上传的静态文件
+
+// 设置代理
+app.use('/weather-api', createProxyMiddleware({
+  target: 'https://api.caiyunapp.com',  // 要代理的目标 API
+  changeOrigin: true,
+  pathRewrite: {
+    '^/weather-api': '',  // 去掉 /weather-api 前缀
+  },
+  onProxyRes: function (proxyRes, req, res) {
+    // 在这里可以对响应做一些额外的处理
+  }
+}));
 
 // 解决跨域问题
 app.all("*", function (req, res, next) {
@@ -41,6 +60,8 @@ app.all("*", function (req, res, next) {
   else next();
 });
 
+// 数据库实例
+const s = new Service();
 // 处理登录请求
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -142,7 +163,7 @@ app.get('/allTree', (req, res) => {
       console.error(err);
       return res.status(500).send('查询失败');
     }
-    res.send(result.rows);     
+    res.send(result.rows);
   });
 });
 
@@ -283,7 +304,7 @@ app.post('/add', upload.single('file'), (req, res) => {
         return res.status(500).send('查询失败');
       }
 
-      const totalItems = result.rows[0].totalitems;          
+      const totalItems = result.rows[0].totalitems;
 
       // 查询当前页的数据
       const offset = (page - 1) * pageSize;
