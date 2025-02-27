@@ -193,7 +193,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import * as turf from "turf";
 import { require } from "../../utils/require";
-import { onMounted, ref,watch  } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRouter } from 'vue-router';
 import axios from "axios";
 import * as echarts from "echarts";
@@ -213,7 +213,7 @@ onMounted(() => {
   map.on("load", (e) => {
     addLayers();
     goNext();
-    
+
   });
 
   setInterval(updateTime, 1000);
@@ -224,14 +224,25 @@ const fetchData = async () => {
   try {
     const response = await axios.get('http://localhost:4000/allTree');  // 调用后端接口
     const data = response.data;
+
     // 更新 treeData 的统计结果
-    treeData.value = data.reduce((acc, item) => {
+    const tempTreeData = data.reduce((acc, item) => {
       const responsibi = item.responsibi;
       if (responsibi) {
         acc[responsibi] = (acc[responsibi] || 0) + 1;
       }
       return acc;
     }, {});
+
+    // 将对象转换为数组并排序
+    const sortedTreeDataArray = Object.entries(tempTreeData)
+      .sort((a, b) => a[1] - b[1]);  // 按数量从大到小排序
+
+    // 如果需要将排序后的结果转换回对象
+    const sortedTreeData = Object.fromEntries(sortedTreeDataArray);
+
+    // 更新 treeData
+    treeData.value = sortedTreeData;
   } catch (error) {
     console.error('数据加载失败', error);
   }
@@ -297,9 +308,9 @@ function initCharts() {
       formatter: function (name) {
         // 在每个图例项后面添加额外文字
         if (name === '散生古树名木') {
-          return name + ' （1000株）';
+          return name + ' （1115株）';
         } else if (name === '古树群') {
-          return name + ' （1222株）';
+          return name + ' （1100株）';
         }
         return name;
       },
@@ -324,8 +335,8 @@ function initCharts() {
           }
         },
         data: [
-          { value: 1000, name: '散生古树名木', itemStyle: { color: 'rgb(237, 116, 121)' } },  // 散生古树名木1000株
-          { value: 1222, name: '古树群', itemStyle: { color: 'rgb(37, 233 , 184)' } }         // 古树群1222株
+          { value: 1115, name: '散生古树名木', itemStyle: { color: 'rgb(237, 116, 121)' } },
+          { value: 1100, name: '古树群', itemStyle: { color: 'rgb(37, 233 , 184)' } }
         ]
       }
     ]
@@ -334,107 +345,171 @@ function initCharts() {
 
   const myChart2 = echarts.init(inner2);
 
-const maxLength = 4;  // 设置最大字符长度为 4
+  const maxLength = 4;  // 设置最大字符长度为 4
 
-// 截取每个区域名称，只保留前四个字符
-const truncatedAreas = areas.map(area => area.length > maxLength ? area.slice(0, maxLength) : area);
-console.log(truncatedAreas);
+  // 截取每个区域名称，只保留前四个字符
+  const truncatedAreas = areas.map(area => area.length > maxLength ? area.slice(0, maxLength) : area);
 
-
-myChart2.setOption({
-  title: {
-    text: '责任区古树名木数量统计',
-    left:"center",
-    textStyle: {
-      color: '#fff', 
-      
-    }
-  },
-  tooltip: {
-    textStyle: {
-      color: '',  // 提示框的文字颜色设置为白色
-    }
-  },
-  grid: {
-    top: '10%',  // 图表顶部间距
-    bottom: '7%',  // 图表底部间距，增加空间显示标签
-    left: '19%',  // 图表左侧间距，增加空间显示标签
-    right: '10%'  // 图表右侧间距
-  },
-  xAxis: {
-    type: 'value',
-    axisLine: {
-      show: false  // 隐藏x轴的坐标轴线
-    },
-    axisLabel: {
+  myChart2.setOption({
+    title: {
+      text: '责任区内古树名木数量统计',
+      left: "center",
       textStyle: {
-        color: '#fff'  // 横轴的数字和标签设置为白色
+        color: '#fff',
+
       }
     },
-    splitLine: {
-      show: false  // 隐藏x轴的网格线
-    }
-  },
-  yAxis: {
-    type: 'category',
-    data: truncatedAreas,  // 使用截断后的区域名称
-    axisLine: {
-      show: false  // 隐藏y轴的坐标轴线
-    },
-    axisLabel: {
+    tooltip: {
       textStyle: {
-        color: '#fff',  // 纵轴的类别名称设置为白色
-        fontSize: 14  // 增加字体大小，避免过小无法显示
+        color: '',  // 提示框的文字颜色设置为白色
+      }
+    },
+    grid: {
+      top: '10%',  // 图表顶部间距
+      bottom: '7%',  // 图表底部间距，增加空间显示标签
+      left: '19%',  // 图表左侧间距，增加空间显示标签
+      right: '10%'  // 图表右侧间距
+    },
+    xAxis: {
+      type: 'value',
+      axisLine: {
+        show: false  // 隐藏x轴的坐标轴线
       },
-      rotate: 0,  // 禁用标签旋转，确保标签不会被截断
-      interval: 0  // 强制显示所有标签
-    },
-    splitLine: {
-      show: false  // 隐藏y轴的网格线
-    }
-  },
-  series: [{
-    name: 'Sales',
-    type: 'bar',  // 条状图
-    data: counts,
-    itemStyle: {
-      color: '#ff7f50'  // 保持条状图的颜色不变
-    },
-    label: {
-      show: true,  // 显示数据标签
-      position: 'right',  // 标签位置在条形图右边
-      textStyle: {
-        color: '#fff',  // 标签文字颜色设置为白色
-        fontSize: 12  // 标签文字大小
+      axisLabel: {
+        textStyle: {
+          color: '#fff'  // 横轴的数字和标签设置为白色
+        }
       },
-      formatter: '{c}'  // 显示每个条状图的数值
+      splitLine: {
+        show: false  // 隐藏x轴的网格线
+      }
     },
-    barCategoryGap: '60%',  // 增大条形图之间的间距
-    barGap: '10%'  // 增加条形图之间的间隔
-  }]
-});
-
-
-
-
-
+    yAxis: {
+      type: 'category',
+      data: truncatedAreas,  // 使用截断后的区域名称
+      axisLine: {
+        show: false  // 隐藏y轴的坐标轴线
+      },
+      axisLabel: {
+        textStyle: {
+          color: '#fff',  // 纵轴的类别名称设置为白色
+          fontSize: 14  // 增加字体大小，避免过小无法显示
+        },
+        rotate: 0,  // 禁用标签旋转，确保标签不会被截断
+        interval: 0  // 强制显示所有标签
+      },
+      splitLine: {
+        show: false  // 隐藏y轴的网格线
+      }
+    },
+    series: [{
+      name: 'Sales',
+      type: 'bar',  // 条状图
+      data: counts,
+      itemStyle: {
+        color: '#ff7f50'  // 保持条状图的颜色不变
+      },
+      label: {
+        show: true,  // 显示数据标签
+        position: 'right',  // 标签位置在条形图右边
+        textStyle: {
+          color: '#fff',  // 标签文字颜色设置为白色
+          fontSize: 12  // 标签文字大小
+        },
+        formatter: '{c}'  // 显示每个条状图的数值
+      },
+      barCategoryGap: '60%',  // 增大条形图之间的间距
+      barGap: '10%'  // 增加条形图之间的间隔
+    }]
+  });
 
   // Chart4
   const myChart4 = echarts.init(inner4);
+
   myChart4.setOption({
-    title: { text: 'Chart 4' },
-    tooltip: {},
-    series: [{
-      name: 'Pie Chart',
-      type: 'pie',
-      data: [
-        { value: 400, name: 'A' },
-        { value: 335, name: 'B' },
-        { value: 310, name: 'C' },
-        { value: 234, name: 'D' },
-        { value: 135, name: 'E' }
-      ]
-    }]
+    title: {
+      left: "center",
+      text: '树种统计',  // 图表标题 
+      textStyle: {
+        color: '#fff',  // 文字颜色
+      }
+    },
+    tooltip: {
+      trigger: 'axis',  // 鼠标悬浮时显示所有数据点
+      axisPointer: {
+        type: 'shadow',  // 鼠标悬浮时显示的指示器为阴影
+      }
+    },
+    grid: {
+      top: '15%',  // 图表顶部间距
+      bottom: '10%',  // 图表底部间距
+      left: '10%',  // 减少左侧间距
+      right: '10%'  // 减少右侧间距
+    },
+    xAxis: {
+      type: 'category',
+      data: ['圆柏', '二球悬铃木', '银杏', '龙柏', '美国山核桃', '梅', '雪松'],  // 树种名称
+      axisLine: { show: false },
+      axisLabel: {
+        textStyle: {
+          color: '#fff',  // 横轴文字颜色
+          fontSize: 12  // 调整字体大小
+        },
+        interval: 0  // 强制显示所有横坐标标签
+      }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        name: '株数（株）',
+        nameTextStyle: {
+          color: '#fff',  // 设置纵坐标标题颜色为白色
+          padding: [0, 0, 0, 8]  // 往右边移动 20px
+        },
+        axisLabel: {
+          textStyle: { color: '#fff' }
+        },
+        splitLine: {
+          show: true,
+          lineStyle: { color: '#333' }  // 显示网格线，颜色为深灰色
+        }
+      },
+      {
+        type: 'value',
+        name: '占比',
+        nameTextStyle: {
+          color: '#fff',  // 设置纵坐标标题颜色为白色
+          padding: [0, 0, 0, 40]  // 往右边移动 20px
+        },
+        axisLabel: {
+          formatter: '{value}%',  // 百分比显示
+          textStyle: { color: '#fff' }
+        },
+        splitLine: {
+          show: true,
+          lineStyle: { color: '#333' }  // 显示网格线，颜色为深灰色
+        }
+      }
+    ],
+    series: [
+      {
+        name: '株数',
+        type: 'bar',
+        data: [426, 238, 208, 178, 174, 105, 78],  // 株数数据
+        barWidth: '40%',  // 设置条形宽度
+        itemStyle: { color: '#00bfff' },  // 改成蓝色
+      },
+      {
+        name: '占比',
+        type: 'line',
+        yAxisIndex: 1,  // 使用第二个y轴
+        data: [19.23, 10.74, 9.39, 8.04, 7.86, 4.74, 3.52],  // 占比数据
+        smooth: true,  // 平滑折线
+        lineStyle: { color: '#ff7f50' },  // 改成橙色
+        symbol: 'circle',  // 数据点显示为圆形
+        symbolSize: 13,  // 数据点的大小
+      }
+    ]
   });
 
   //Chart3
@@ -479,7 +554,10 @@ myChart2.setOption({
           },
         },
         grid: {
-          top: "80px"
+          top: '80px',  // 图表顶部间距
+          bottom: '15%',  // 图表底部间距
+          left: '12%',  // 减少左侧间距
+          right: '12%'  // 减少右侧间距
         },
         xAxis: {
           type: 'category',
@@ -501,7 +579,11 @@ myChart2.setOption({
         yAxis: [
           {
             type: 'value',
-            name: '温度 (°C)',
+            name: '温度',
+            nameTextStyle: {
+              color: '#fff',  // 设置纵坐标标题颜色为白色
+              padding: [0, 0, 0, -45]  // 往右边移动 20px
+            },
             min: Math.floor(Math.min(...temperatureData)) - 1,  // 向下取整
             max: Math.ceil(Math.max(...temperatureData)) + 1,  // 向上取整
             axisLabel: {
@@ -518,7 +600,11 @@ myChart2.setOption({
           },
           {
             type: 'value',
-            name: '湿度 (%)',
+            name: '湿度',
+            nameTextStyle: {
+              color: '#fff',  // 设置纵坐标标题颜色为白色
+              padding: [0, 0, 0, 38]  // 往右边移动 20px
+            },
             min: Math.floor(Math.min(...humidityData)) - 1,  // 向下取整
             max: Math.ceil(Math.max(...humidityData)) + 1,  // 向上取整
             axisLabel: {
@@ -581,7 +667,7 @@ function init() {
     container: "maper",
     center: [118.79665603476823, 32.05941383461646],
     zoom: 8.3,
-    maxZoom: 10,
+    maxZoom: 12,
     minZoom: 6.5,
     style: {
       version: 8,
@@ -722,7 +808,7 @@ function goNext() {
     const code = e.features[0].properties.adcode.toString();
     city.value = e.features[0].properties.name;
     //正常这里应该去请求对应的行政区数据，在这里我用静态数据过滤来代替请求
-    var countys = await getData("/zjcounty.json");
+    var countys = await getData("/njcounty.json");
     let currentCounty = countys.features.filter(
       (f) => f.properties.adcode.toString() === code
     );
@@ -771,6 +857,7 @@ function goNext() {
     const points = await getData("/point.json");
     const currentPoint = points.filter((f) => f.adcode === code)[0];
     const pointData = convert(currentPoint.points);
+    console.log(pointData);
 
     map.addSource("poi", { type: "geojson", data: pointData });
     map.addLayer({
@@ -793,11 +880,17 @@ function goNext() {
     turn(pointData);
     map.on("mouseover", "poi", (e) => {
       const description =
-        "<div>监测点名称：" +
-        e.features[0].properties["point_name"] +
+        "<div>古树名木树种：" +
+        e.features[0].properties.name +
         "</div>" +
-        "<div>监测点级别：" +
-        e.features[0].properties.level +
+        "<div>科属：" +
+        e.features[0].properties.families +
+        "</div>" +
+        "<div>古树名木树龄：" +
+        e.features[0].properties.age +
+        "</div>" +
+        "<div>古树名木等级：" +
+        e.features[0].properties.rank +
         "</div>";
       const popup = new mapboxgl.Popup()
         .setLngLat(e.features[0].geometry.coordinates)
@@ -864,12 +957,19 @@ function convert(json) {
 function turn(data) {
   //第一次直接播放
   const description =
-    "<div>监测点名称：" +
-    data.features[0].properties["point_name"] +
+    "<div>古树名木树种：" +
+    data.features[0].properties.name +
     "</div>" +
-    "<div>监测点级别：" +
-    data.features[0].properties.level +
+    "<div>科属：" +
+    data.features[0].properties.families +
+    "</div>" +
+    "<div>古树名木树龄：" +
+    data.features[0].properties.age +
+    "</div>" +
+    "<div>古树名木等级：" +
+    data.features[0].properties.rank +
     "</div>";
+
   const popup = new mapboxgl.Popup()
     .setLngLat(data.features[0].geometry.coordinates)
     .setHTML(description)
@@ -885,18 +985,24 @@ function turn(data) {
       i = 1;
     }
     const description =
-      "<div>监测点名称：" +
-      data.features[i].properties["point_name"] +
+      "<div>古树名木树种：" +
+      data.features[i].properties.name +
       "</div>" +
-      "<div>监测点级别：" +
-      data.features[i].properties.level +
+      "<div>科属：" +
+      data.features[i].properties.families +
+      "</div>" +
+      "<div>古树名木树龄：" +
+      data.features[i].properties.age +
+      "</div>" +
+      "<div>古树名木等级：" +
+      data.features[i].properties.rank +
       "</div>";
     const popup = new mapboxgl.Popup()
       .setLngLat(data.features[i].geometry.coordinates)
       .setHTML(description)
       .addTo(map);
     popups.push(popup);
-  }, 3000);
+  }, 1500);
 }
 //将普通的点位、或者统计类的json数据附加到行政区划数据上
 function attach(count, province) {
