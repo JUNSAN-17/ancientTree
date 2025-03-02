@@ -203,12 +203,14 @@ let city = ref("");
 let treeData = ref({});
 let currentTime = ref("");
 let currentDate = ref("");
+let allTree = ref("")
 //存放所有的弹窗对象
 let popups = [];
 //定时器id
 let intval = null;
 onMounted(() => {
   init();
+  fetchTreeData()
   fetchData();
   map.on("load", (e) => {
     addLayers();
@@ -513,7 +515,7 @@ function initCharts() {
   });
 
   //Chart3
-  // const wealtherApi = 'gq6zvUWgqIw0C7CA'
+  const wealtherApi = 'gq6zvUWgqIw0C7CA'
   // 获取数据
   axios.get('http://localhost:4000/weather-api/v2.6/' + wealtherApi + '/118.79665603476823,32.05941383461646/hourly?hourlysteps=6')
     .then(response => {
@@ -853,12 +855,12 @@ function goNext() {
       layout: { "text-field": "{name}" },
     });
     fit({ type: "FeatureCollection", features: currentCounty });
-    //添加具体城市的土壤检测点，目前只有杭州市有示例数据，但是我们逻辑还是按照所有城市都有数据的逻辑在做
-    const points = await getData("/point.json");
-    const currentPoint = points.filter((f) => f.adcode === code)[0];
-    const pointData = convert(currentPoint.points);
-    console.log(pointData);
-
+   
+    const currentPoint = allTree.value.features.filter((f) => f.properties.adcode === code);
+    const pointData = {
+      "type": "FeatureCollection",
+      "features": currentPoint
+    };
     map.addSource("poi", { type: "geojson", data: pointData });
     map.addLayer({
       id: "poi-out",
@@ -1022,5 +1024,17 @@ async function getData(url) {
   let result = await axios.get(url);
   return result.data;
 };
+
+function fetchTreeData() {
+  axios.get('http://localhost:4000/allTree2')  // 调用后端接口
+    .then(response => {
+      allTree.value = response.data;  // 存储数据        
+    })
+    .catch(error => {
+      console.error('数据加载失败', error);
+    });
+  console.log(111);
+
+}
 
 </script>

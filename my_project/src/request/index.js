@@ -133,10 +133,10 @@ app.post('/updtable', (req, res) => {
     let sql, values;
 
     if (judge) {
-      sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2 WHERE id = $3";
+      sql = "UPDATE public.tree_end SET index1 = $1, index2 = $2 WHERE id = $3";
       values = [index1, index2, item];
     } else {
-      sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2 WHERE id = $3";
+      sql = "UPDATE public.tree_end SET index1 = $1, index2 = $2 WHERE id = $3";
       values = [index, 0, item];
     }
 
@@ -157,7 +157,7 @@ app.post('/updtable', (req, res) => {
 
 // 获取每一个数据的接口
 app.get('/allTree', (req, res) => {
-  const sql = "SELECT * FROM public.tree3 ORDER BY index1, index2 ASC";
+  const sql = "SELECT * FROM public.tree_end ORDER BY index1, index2 ASC";
   s.select(sql, [], (err, result) => {
     if (err) {
       console.error(err);
@@ -167,6 +167,71 @@ app.get('/allTree', (req, res) => {
   });
 });
 
+app.get('/allTree2', (req, res) => {
+  const sql = `
+    SELECT 
+      id, 
+      name, 
+      latinName, 
+      families, 
+      number, 
+      area, 
+      location, 
+      age, 
+      bustline, 
+      crown, 
+      height, 
+      rank, 
+      responsibi, 
+      index1, 
+      index2, 
+      src, 
+      adcode,
+      ST_AsGeoJSON(geom) AS geojson 
+    FROM public.tree_end 
+    ORDER BY index1, index2 ASC
+  `;
+
+  s.select(sql, [], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('查询失败');
+    }
+
+    // 处理数据，将 PostGIS 的 GeoJSON 转换为标准的 GeoJSON 格式
+    const geojsonFeatures = result.rows.map(row => ({
+      type: "Feature",
+      properties: {
+        id: row.id,
+        name: row.name,
+        latinName: row.latinname,
+        families: row.families,
+        number: row.number,
+        area: row.area,
+        location: row.location,
+        age: row.age,
+        bustline: row.bustline,
+        crown: row.crown,
+        height: row.height,
+        rank: row.rank,
+        responsibi: row.responsibi,
+        index1: row.index1,
+        index2: row.index2,
+        src: row.src,
+        adcode: row.adcode
+      },
+      geometry: JSON.parse(row.geojson) // 解析 ST_AsGeoJSON() 生成的 JSON
+    }));
+
+    // 返回符合 GeoJSON 规范的数据
+    res.json({
+      type: "FeatureCollection",
+      features: geojsonFeatures
+    });
+  });
+});
+
+
 //获取分页的数据
 app.get('/treeData', (req, res) => {
   const page = parseInt(req.query.page) || 1; // 当前页码，默认为1
@@ -174,11 +239,11 @@ app.get('/treeData', (req, res) => {
   const offset = (page - 1) * pageSize; // 计算偏移量
 
   // 获取总记录数的 SQL
-  const sqlCount = "SELECT COUNT(*) FROM public.tree3";
+  const sqlCount = "SELECT COUNT(*) FROM public.tree_end";
   // 获取分页数据的 SQL
   const sqlData = `
     SELECT * 
-    FROM public.tree3
+    FROM public.tree_end
     ORDER BY index1, index2 ASC
     LIMIT $1 OFFSET $2
   `;
@@ -215,7 +280,7 @@ app.get('/treeData', (req, res) => {
 // 右侧搜索框的数据接口
 app.post('/search', (req, res) => {
   const rightSearchId = req.body.rightSearchId;
-  const sql = "SELECT * FROM public.tree3 WHERE id = $1";
+  const sql = "SELECT * FROM public.tree_end WHERE id = $1";
   s.select(sql, [rightSearchId], (err, result) => {
     if (err) {
       console.error(err);
@@ -279,10 +344,10 @@ app.post('/add', upload.single('file'), (req, res) => {
 
   // 判断数据id的格式，选择插入SQL语句
   if (judge) {
-    sql = "INSERT INTO public.tree3(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+    sql = "INSERT INTO public.tree_end(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
     values = [index1, index2, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src];
   } else {
-    sql = "INSERT INTO public.tree3(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+    sql = "INSERT INTO public.tree_end(index1, index2, id, name, families, area, location, age, bustline, crown, height, rank, src) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
     values = [index, 0, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src];
   }
 
@@ -298,7 +363,7 @@ app.post('/add', upload.single('file'), (req, res) => {
     const pageSize = req.query.pageSize || 7;  // 每页显示数量，默认为7
 
     // 查询数据总数
-    s.select("SELECT COUNT(*) AS totalItems FROM public.tree3", [], (err, result) => {
+    s.select("SELECT COUNT(*) AS totalItems FROM public.tree_end", [], (err, result) => {
       if (err) {
         console.error(err);
         return res.status(500).send('查询失败');
@@ -308,7 +373,7 @@ app.post('/add', upload.single('file'), (req, res) => {
 
       // 查询当前页的数据
       const offset = (page - 1) * pageSize;
-      s.select("SELECT * FROM public.tree3 ORDER BY index1, index2 ASC LIMIT $1 OFFSET $2", [pageSize, offset], (err, result) => {
+      s.select("SELECT * FROM public.tree_end ORDER BY index1, index2 ASC LIMIT $1 OFFSET $2", [pageSize, offset], (err, result) => {
         if (err) {
           console.error(err);
           return res.status(500).send('查询失败');
@@ -348,7 +413,7 @@ app.post('/del', (req, res) => {
   const page = req.body.page || 1;  // 当前页，默认为1
   const pageSize = req.body.pageSize || 7;  // 每页显示数量，默认为7
 
-  const sql = "DELETE FROM public.tree3 WHERE id = $1";
+  const sql = "DELETE FROM public.tree_end WHERE id = $1";
   s.delete(sql, [id], (err, result) => {
     if (err) {
       console.error(err);
@@ -356,7 +421,7 @@ app.post('/del', (req, res) => {
     }
 
     // 删除成功后查询总记录数和当前页数据
-    s.select("SELECT COUNT(*) AS totalItems FROM public.tree3", [], (err, result) => {
+    s.select("SELECT COUNT(*) AS totalItems FROM public.tree_end", [], (err, result) => {
       if (err) {
         console.error(err);
         return res.status(500).send('查询失败');
@@ -366,7 +431,7 @@ app.post('/del', (req, res) => {
 
       // 查询当前页的数据
       const offset = (page - 1) * pageSize;
-      s.select("SELECT * FROM public.tree3 ORDER BY index1 ASC LIMIT $1 OFFSET $2", [pageSize, offset], (err, result) => {
+      s.select("SELECT * FROM public.tree_end ORDER BY index1 ASC LIMIT $1 OFFSET $2", [pageSize, offset], (err, result) => {
         if (err) {
           console.error(err);
           return res.status(500).send('查询失败');
@@ -386,7 +451,7 @@ app.post('/del', (req, res) => {
 
 app.post('/delPic', (req, res) => {
   const id = req.body.id;
-  const sql = "UPDATE public.tree3 SET src = NULL WHERE id = $1";
+  const sql = "UPDATE public.tree_end SET src = NULL WHERE id = $1";
   s.delete(sql, [id], (err, result) => {
     if (err) {
       console.error(err);
@@ -451,10 +516,10 @@ app.post('/upd', upload.single('file'), (req, res) => {
   let sql, values;
 
   if (judge) {
-    sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
+    sql = "UPDATE public.tree_end SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
     values = [index1, index2, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src, data.oldid];
   } else {
-    sql = "UPDATE public.tree3 SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
+    sql = "UPDATE public.tree_end SET index1 = $1, index2 = $2, id = $3, name = $4, families = $5, area = $6, location = $7, age = $8, bustline = $9, crown = $10, height = $11, rank = $12, src = $13 WHERE id = $14";
     values = [index, 0, data.id, data.name, data.families, data.area, data.location, data.age, data.bustline, data.crown, data.height, data.rank, src, data.oldid];
   }
 
@@ -471,7 +536,7 @@ app.post('/upd', upload.single('file'), (req, res) => {
     console.log(page);
 
 
-    const countSql = "SELECT COUNT(*) FROM public.tree3"; // 获取总记录数
+    const countSql = "SELECT COUNT(*) FROM public.tree_end"; // 获取总记录数
     s.select(countSql, [], (err, countResult) => {
       if (err) {
         console.error(err);
@@ -481,7 +546,7 @@ app.post('/upd', upload.single('file'), (req, res) => {
       const totalItems = countResult.rows[0].count;
 
       // 检查当前页是否有效
-      const dataSql = `SELECT * FROM public.tree3 ORDER BY index1, index2 ASC LIMIT $1 OFFSET $2`; // 查询分页数据
+      const dataSql = `SELECT * FROM public.tree_end ORDER BY index1, index2 ASC LIMIT $1 OFFSET $2`; // 查询分页数据
       s.select(dataSql, [pageSize, offset], (err, result) => {
         if (err) {
           console.error(err);

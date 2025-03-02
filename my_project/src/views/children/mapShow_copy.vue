@@ -62,8 +62,8 @@ export default {
       center: [118.79665603476823, 32.05941383461646], // starting position [lng, lat]
       zoom: 10, // starting zoom
       attributionControl: false,
-      minZoom: 5,
-      maxZoom: 19,
+      minZoom: 8,
+      maxZoom: 17,
       bounds: [[119.23657837, 32.61218107], [118.35377162, 31.23060178]],
       style: {
         "version": 8,
@@ -281,7 +281,7 @@ export default {
             'service': 'WFS',
             'version': '1.0.0',
             'request': 'GetFeature',
-            'typeName': 'ne:tree1',
+            'typeName': 'ne:tree_end',
             'outputFormat': 'application/json',
           },
         }).then((res) => {
@@ -300,6 +300,10 @@ export default {
             if (error) throw error;
             map.addImage("image-c", image);
           })
+          map.loadImage('/mapbox-icons/d.png', (error, image) => {
+            if (error) throw error;
+            map.addImage("image-d", image);
+          })
           // 加载poi数据
           setTimeout(() => {
             map.addSource("poi_source", {
@@ -311,7 +315,7 @@ export default {
               type: 'symbol',
               source: "poi_source",
               layout: {
-                "icon-image": ["match", ["get", "rank"], "一级", "image-a", "二级", "image-b", "image-c"],
+                "icon-image": ["match", ["get", "rank"], "一级", "image-a", "二级", "image-b", "三级", "image-c", "image-d"],
                 "icon-size": 0.7,
                 "icon-anchor": "bottom",
                 "icon-allow-overlap": true
@@ -425,6 +429,10 @@ export default {
           if (error) throw error;
           map.addImage("image-c", image);
         })
+        map.loadImage('/mapbox-icons/d.png', (error, image) => {
+          if (error) throw error;
+          map.addImage("image-d", image);
+        })
         setTimeout(() => {
           map.addSource("poi_source", {
             type: "geojson",
@@ -435,7 +443,7 @@ export default {
             type: 'symbol',
             source: "poi_source",
             layout: {
-              "icon-image": ["match", ["get", "rank"], "一级", "image-a", "二级", "image-b", "image-c"],
+              "icon-image": ["match", ["get", "rank"], "一级", "image-a", "二级", "image-b", "三级", "image-c", "image-d"],
               "icon-size": 0.7,
               "icon-anchor": "bottom",
             }
@@ -474,6 +482,10 @@ export default {
         if (error) throw error;
         map.addImage("image-c", image);
       })
+      map.loadImage('/mapbox-icons/d.png', (error, image) => {
+        if (error) throw error;
+        map.addImage("image-d", image);
+      })
       setTimeout(() => {
         map.addSource("poi_source", {
           type: "geojson",
@@ -484,7 +496,7 @@ export default {
           type: 'symbol',
           source: "poi_source",
           layout: {
-            "icon-image": ["match", ["get", "rank"], "一级", "image-a", "二级", "image-b", "image-c"],
+            "icon-image": ["match", ["get", "rank"], "一级", "image-a", "二级", "image-b", "三级", "image-c", "image-d"],
             "icon-size": 0.7,
             "icon-anchor": "bottom",
           }
@@ -530,6 +542,30 @@ export default {
       </button>
     </div>
     <pre id="coordinates" class="coordinates" v-show=markerShow></pre>
+
+    <div id="label-container">
+      <div class="label-item">
+        <img src="/mapbox-icons/a.png" alt="名木">
+        <div class="label-text">一级古树</div>
+      </div>
+
+      <div class="label-item">
+        <img src="/mapbox-icons/b.png" alt="一级古树">
+        <div class="label-text">二级古树</div>
+      </div>
+
+      <div class="label-item">
+        <img src="/mapbox-icons/c.png" alt="二级古树">
+        <div class="label-text">三级古树</div>
+      </div>
+
+      <div class="label-item">
+        <img src="/mapbox-icons/d.png" alt="三级古树">
+        <div class="label-text">名木</div>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -581,7 +617,6 @@ export default {
   right: 8px;
   top: 90px;
   z-index: 99;
-
 }
 
 .addMarkerbtn {
@@ -605,5 +640,46 @@ export default {
   border-radius: 3px;
   display: none;
   z-index: 99;
+}
+
+/* 容器固定在右下角 */
+#label-container {
+  position: absolute;
+  right: 8px;
+  bottom: 90px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  /* 竖直排列 */
+  align-items: center;
+  gap: 10px;
+  /* 图标之间的间距 */
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 每个图标 + 文本的容器 */
+.label-item {
+  display: flex;
+  flex-direction: column;
+  /* 让图片和文字垂直排列 */
+  align-items: center;
+}
+
+/* 图片大小 */
+.label-item img {
+  width: 40px;
+  /* 调整大小 */
+  height: auto;
+}
+
+/* 文字样式 */
+.label-text {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+  text-align: center;
 }
 </style>
