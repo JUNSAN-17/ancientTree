@@ -515,7 +515,7 @@ function initCharts() {
   });
 
   //Chart3
-  const wealtherApi = 'gq6zvUWgqIw0C7CA'
+  // const wealtherApi = 'gq6zvUWgqIw0C7CA'
   // 获取数据
   axios.get('http://localhost:4000/weather-api/v2.6/' + wealtherApi + '/118.79665603476823,32.05941383461646/hourly?hourlysteps=6')
     .then(response => {

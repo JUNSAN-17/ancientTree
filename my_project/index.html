@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/public/tree3.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/fonts/remixicon.css">
-    <title>南京市古树名木数字化智慧管理平台</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/public/tree3.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./public/fonts/remixicon.css">
+  <title>南京市古树名木数字化智慧管理平台</title>
+  <script type="text/javascript">
+    window._AMapSecurityConfig = {
+        securityJsCode:'fb95e24f35da6dbe4a6132fcd3085847',
+    }
+</script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+  <!-- 引入 AMap 高德地图 JS API -->
+  <script type="text/javascript" src='https://a.amap.com/jsapi_demos/static/data3d/lib/three.117.js'></script>
+  <script type="text/javascript" src='https://a.amap.com/jsapi_demos/static/data3d/lib/GLTFLoader.117.min.js'></script>
+  <script src = 'https://webapi.amap.com/maps?v=2.0&key=1bac13a5601e765732aff7d4cc19c606&&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar,AMap.PlaceSearch,AMap.DistrictSearch,AMap.HeatMap,AMap.3DTilesLayer,AMap.IndoorMap,AMap.MoveAnimation,AMap.ElasticMarker,AMap.MarkerCluster,AMap.IndexCluster,AMap.MouseTool,AMap.BezierCurveEditor,AMap.RectangleEditor,AMap.CircleEditor,AMap.EllipseEditor,AMap.GeoJSON,AMap.PolylineEditor,AMap.PolygonEditor,AMap.AutoComplete,AMap.Driving,AMap.Walking,AMap.Riding,AMap.Transfer,AMap.Geocoder,AMap.GraspRoad,AMap.StationSearch,AMap.LineSearch,AMap.ArrivalRange,AMap.CitySearch,AMap.Geolocation,AMap.Weather,AMap.RangingTool'></script>
+</body>
+
 </html>

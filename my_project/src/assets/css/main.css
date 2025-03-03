@@ -23,7 +23,7 @@ body {
   border-radius: 10px !important;
 }
 
-#map .mapboxgl-popup-content {
+/* #map .mapboxgl-popup-content {
   font-size: 13px;
   position: relative;
   border: 1px solid rgb(4, 216, 249) !important;
@@ -32,12 +32,124 @@ body {
   border-radius: 10px !important;
   width: 110px !important;
   height: 70px !important;
+} */
+
+#map .mapboxgl-popup-content {
+  font-size: 13px;
+  position: relative;
+  border: 1px solid rgb(4, 216, 249) !important;
+  background: rgba(18, 82, 244, 0.5) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  /* width: 222px !important;
+  height: 350px !important; */
+  width: 100%;
+  height: 100%;
 }
+
+/* 弹窗内容样式 */
+.popup-form {
+  font-family: Arial, sans-serif;
+  padding: 2px;
+  max-width: 100%;
+}
+
+.popup-form table {
+  width: 100%;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.popup-form table td {
+  padding: 2px;
+  text-align: left;
+}
+
+.popup-form label {
+  font-weight: bold;
+  display: block;
+}
+
+.popup-form input {
+  width: 100%;
+  padding: 3px;
+  margin-top: 2px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.popup-form .popup-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-buttons-left,
+.popup-buttons-right {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-form button {
+  padding: 10px 20px;
+  background-color: rgb(52, 73, 94);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.popup-form #submit-btn {
+  background-color: rgb(52, 73, 94);
+  color: white;
+  border: none;
+  
+}
+
+.popup-form #submit-btn:hover {
+  background-color: rgb(42, 63, 79);
+}
+
+.popup-form #cancel-btn {
+  background-color: #ccc;
+  color: black;
+  border: none;
+}
+
+.popup-form #del-btn {
+  background-color:orange;
+  color: white;
+  border: none;
+}
+
+.popup-form #cancel-btn:hover {
+  background-color: #bbb;
+}
+
+
+/* 去掉数字输入框的上下箭头 */
+.popup-form input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.popup-form input[type="number"]::-webkit-outer-spin-button,
+.popup-form input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 
 #map .mapboxgl-popup-content #nav-icon {
   position: absolute;
   bottom: 0px;
-  right: 1px;
+  right: -5px;
   z-index: 9999;
   cursor: pointer;
+}
+
+.amap-copyright,
+.amap-call {
+  display: none !important;
 }
