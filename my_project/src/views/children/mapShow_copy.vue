@@ -234,7 +234,7 @@ export default {
         <div class="popup-form">
           <table>
             <tr><td><label for="id">挂牌号</label></td><td><input type="text" id="id" name="id"/></td></tr>
-            <tr><td><label for="name">树名</label></td><td><input type="number" id="age" name="age" placeholder="请输入年龄" /></td></tr>
+            <tr><td><label for="name">树名</label></td><td><input type="number" id="age" name="age" /></td></tr>
             <tr><td><label for="field3">科属</label></td><td><input type="text" id="field3" name="field3" /></td></tr>
             <tr><td><label for="field4">区域</label></td><td><input type="text" id="field4" name="field4" /></td></tr>
             <tr><td><label for="field5">地址</label></td><td><input type="text" id="field5" name="field5" /></td></tr>
