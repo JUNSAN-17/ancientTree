@@ -291,7 +291,7 @@ function initCharts() {
   myChart1.setOption({
     title: {
       text: '古树名木统计',
-      left: '10px',
+      left: '120px',
       top: "10px",
       textStyle: {
         color: '#fff',

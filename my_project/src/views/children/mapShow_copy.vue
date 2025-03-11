@@ -8,8 +8,6 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoiMTMxNjczNzc1OCIsImEiOiJjbHFtZHIxYTUyem9oMnJtaHp4aTJ2NDRlIn0.09tiCR8kV4_0xZFRm_41iw';
 
 let map;
-let currentMarker;
-let currentPopup;
 let markers = [];
 export default {
   data() {
@@ -612,6 +610,7 @@ export default {
         map.removeImage("image-a");
         map.removeImage("image-b");
         map.removeImage("image-c");
+        map.removeImage("image-d");
         const center = result[0].geometry.coordinates;
         map.flyTo({ center: center, essentia: true });
         const obj = {

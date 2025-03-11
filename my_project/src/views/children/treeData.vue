@@ -38,11 +38,11 @@ export default {
       totalItems: 0,  // 总记录数
     };
   },
-  mounted() {
-    // this.start()
+  mounted() {    
     this.fetchData(this.currentPage);
     setTimeout(() => {
-      this.updatatable()
+      this.updatatable();
+      // this.start()
     }, 1000);
   },
   methods: {
@@ -81,23 +81,23 @@ export default {
         url: 'http://localhost:4000/updtable',
         data: idarr
       }).then((res) => {
-
+        
       })
     },
     // 初试化信息
-    // start() {
-    //   // 请求数据库中所有数据
-    //   axios({
-    //     method: "get",
-    //     url: 'http://localhost:4000/user',
-    //     data: {}
-    //   }).then((res) => {
-    //     this.hhh = res.data;
-    //     console.log(this.hhh.length);
-    //     this.hhh.forEach(element => this.idarr.push(element.id)
-    //     )
-    //   })
-    // },
+    start() {
+      // 请求数据库中所有数据
+      axios({
+        method: "get",
+        url: 'http://localhost:4000/allTree',
+        data: {}
+      }).then((res) => {
+        this.hhh = res.data;
+        console.log(this.hhh.length);
+        this.hhh.forEach(element => this.idarr.push(element.id)
+        )
+      })
+    },
 
     // 添加按钮打开的对话框里的文件状态
     fileChange(file) {
@@ -441,8 +441,8 @@ export default {
           },
         })
         .then((res) => {
-          this.hhh = res.data.data; // 当前页的数据        
-          this.totalItems = res.data.totalCount; // 总记录数
+          this.hhh = res.data.data; // 当前页的数据                  
+          this.totalItems = res.data.totalCount; // 总记录数          
           this.currentPage = page; // 更新当前页码
         })
         .catch((err) => {

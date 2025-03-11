@@ -123,7 +123,7 @@ app.post("/register", (req, res) => {
 
 // 页面加载时为每一个index1，index2 赋值
 app.post('/updtable', (req, res) => {
-  const idarr = req.body;
+  const idarr = req.body;  
   for (const item of idarr) {
     const judge = item.includes('-');
     const num = item.indexOf('-');
@@ -153,6 +153,7 @@ app.post('/updtable', (req, res) => {
     });
   }
 });
+
 
 
 // 获取每一个数据的接口

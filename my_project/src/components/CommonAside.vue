@@ -19,13 +19,13 @@ export default {
                     label: '图表统计', path: '/others1', children: [
                         { path: '/main/treeStatistics', label: '古树名木统计', icon: 'ri-user-fill' },
                         { path: '/main/userStatistics', label: '用户统计', icon: 'ri-user-fill' },
-                        { path: '/main/bigShow', label: '大屏展示', icon: 'ri-user-fill' },
+                        { path: '/main/bigShow', label: '智慧大屏', icon: 'ri-user-fill' },
                     ]
                 },
                 {
-                    label: '古树地图', path: '/others2', children: [
+                    label: '古树可视化', path: '/others2', children: [
                         { path: '/main/mapShow', label: '地图展示', icon: 'ri-earth-fill' },
-                        { path: '/main/threeShow', label: '三维模型展示', icon: 'ri-user-fill' }
+                        { path: '/main/threeShow', label: '三维重建', icon: 'ri-user-fill' }
                     ]
                 },
                 {

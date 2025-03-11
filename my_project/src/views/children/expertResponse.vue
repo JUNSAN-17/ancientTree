@@ -34,13 +34,13 @@
       </el-col>
     </el-row>
 
-
     <!-- 咨询列表 -->
     <div class="consultation-list">
       <el-table :data="filteredConsultationList" style="width: 100%" stripe border
         :header-cell-style="{ backgroundColor: '#f5f5f5', textAlign: 'center' }" @row-click="handleRowClick">
         <el-table-column prop="id" label="信件编号" width="180" header-align="center" align="center" sortable />
         <el-table-column prop="title" label="信件标题" header-align="center" align="center" sortable />
+        <el-table-column prop="consultant" label="咨询人" width="120" header-align="center" align="center" sortable />
         <el-table-column prop="appealType" label="诉求类型" width="120" header-align="center" align="center" sortable />
         <el-table-column prop="writeTime" label="写信时间" width="180" header-align="center" align="center" sortable />
         <el-table-column prop="status" label="处理状态" width="120" header-align="center" align="center" sortable />
@@ -65,6 +65,9 @@
         <!-- 咨询内容 -->
         <el-form-item label="信件标题">
           <el-input v-model="selectedConsultation.title" disabled />
+        </el-form-item>
+        <el-form-item label="咨询人">
+          <el-input v-model="selectedConsultation.consultant" disabled />
         </el-form-item>
         <el-form-item label="诉求类型">
           <el-input v-model="selectedConsultation.appealType" disabled />
@@ -105,24 +108,24 @@ export default {
         {
           id: "2025011146402444",
           title: "对第七次南京市古树名木普查公示结果提出...",
+          consultant: "t3",
           appealType: "咨询",
           writeTime: "2025-01-11 20:53",
-          status: "待回复",
+          status: "已回复",
           content: "请问古树名木的普查结果何时公示？",
-          replyContent: "",
-          historyReplies: []
+          replyContent: "收到来信，请耐心等待，保持关注。",
+          historyReplies: [{ time: "2025-01-12 11:00", content: "感谢您的建议，我们会加强古树名木的保护工作。" }]
         },
         {
           id: "2025011146402445",
-          title: "关于城市交通拥堵问题的建议",
+          title: "关于古树名木保护的建议",
+          consultant: "t4",
           appealType: "建议",
           writeTime: "2025-01-12 10:30",
-          status: "已回复",
-          content: "建议在高峰时段增加公交班次。",
-          replyContent: "感谢您的建议，已向相关部门反馈。",
-          historyReplies: [
-            { time: "2025-01-12 11:00", content: "感谢您的建议，已向相关部门反馈。" }
-          ]
+          status: "未回复",
+          content: "建议加强对古树名木的保护措施，定期检查健康状况。",
+          replyContent: "",
+          historyReplies: []
         }
       ],
       searchText: '',
