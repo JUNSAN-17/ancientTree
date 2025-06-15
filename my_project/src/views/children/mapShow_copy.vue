@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from "axios";
 
 mapboxgl.accessToken =
-  'pk.eyJ1IjoiMTMxNjczNzc1OCIsImEiOiJjbHFtZHIxYTUyem9oMnJtaHp4aTJ2NDRlIn0.09tiCR8kV4_0xZFRm_41iw';
+  'pk.eyJ1IjoiMTMxNjczNzc1OCIsImEiOiJjbWI1djNwdjQwZm1pMmlxczc5eDZ5eGZvIn0.WbnChT3JwDIZPQDl6jeYVw';
 
 let map;
 let markers = [];

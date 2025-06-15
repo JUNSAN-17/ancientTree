@@ -186,15 +186,21 @@ export default {
               padding: [20, 0, 10, 0],  // 拉开标题与图表之间的距离
             },
             visualMap: {
-              min: Math.min(...Object.values(this.areaCount)),
-              max: Math.max(...Object.values(this.areaCount)),
-              type: 'continuous',
-              inRange: {
-                color: ['#f1c40f', '#e74c3c', '#8e44ad'], // 根据数量设置颜色渐变
-              },
-              text: ['高', '低'],
-              show: true,  // 显示颜色映射
-            },
+  type: 'piecewise',
+  show: true,
+  pieces: [
+    { min: 151, label: '80%-100%', color: '#6a0dad' },
+    { min: 71, max: 150, label: '50%-80%', color: '#d29000' },
+    { min: 31, max: 70, label: '20%-50%', color: '#f1c40f' },
+    { min: 16, max: 30, label: '10%-20%', color: '#f7dc6f' },
+    { min: 0, max: 15, label: '0%-10%', color: '#fff9e6' }
+  ],
+  orient: 'vertical',
+  left: '20px',
+  bottom: '20px',
+  text: ['高', '低']
+}
+,
             series: [
               {
                 type: 'map',

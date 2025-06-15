@@ -515,7 +515,7 @@ function initCharts() {
   });
 
   //Chart3
-  // const wealtherApi = 'gq6zvUWgqIw0C7CA'
+  const wealtherApi = 'gq6zvUWgqIw0C7CA'
   // 获取数据
   axios.get('http://localhost:4000/weather-api/v2.6/' + wealtherApi + '/118.79665603476823,32.05941383461646/hourly?hourlysteps=6')
     .then(response => {
@@ -661,7 +661,7 @@ function initCharts() {
 }
 
 
-const token = 'pk.eyJ1IjoiMTMxNjczNzc1OCIsImEiOiJjbHFtZHIxYTUyem9oMnJtaHp4aTJ2NDRlIn0.09tiCR8kV4_0xZFRm_41iw'
+const token = 'pk.eyJ1IjoiMTMxNjczNzc1OCIsImEiOiJjbWI1djNwdjQwZm1pMmlxczc5eDZ5eGZvIn0.WbnChT3JwDIZPQDl6jeYVw'
 //初始化方法构建mapbox
 function init() {
   mapboxgl.accessToken = token;
